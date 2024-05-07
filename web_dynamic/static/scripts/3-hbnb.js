@@ -32,4 +32,19 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$.ajax({
+		type: 'POST',
+		url: 'http://0.0.0.0:5001/api/v1/places_search/',
+		data: '{}',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: function (data) {
+			const containerDiv = document.geteElementByClass('title_box');
+			const placeDivs = containerDiv.getElementByTagName('DIV');
+			for (let i = 0; i < placeDivs.length; i++) {
+				place = '<article><div><h2>' + `${data[i].name}` + '</h2><div>$' + `${data[i].price_by_night}` + '</div></div><div><div>' + `${data[i].max_guest}` + '</div><div>' + `${data[i].number_rooms}` + '</div><div>' + `${data[i].number_bathrooms}` + '</div></div><div>' + `${data[i].description}` + '</div></article>'
+			}
+			$('section.places').append('place');
+		}
+	});		
 });
